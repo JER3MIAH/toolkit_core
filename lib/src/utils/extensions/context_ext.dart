@@ -39,6 +39,22 @@ extension ContextExtensions on BuildContext {
     AppDialog.dialog(this, content, bgColor: bgColor, dismissible: dismissible);
   }
 
+  void showBottomSheet(
+    Widget content, {
+    bool isScrollControlled = true,
+    bool useRootNavigator = true,
+    Color? backgroundColor,
+    double? maxHeight,
+  }) {
+    AppNavigator(this).showBottomSheet(
+      child: content,
+      backgroundColor: backgroundColor,
+      isScrollControlled: isScrollControlled,
+      useRootNavigator: useRootNavigator,
+      maxHeight: maxHeight,
+    );
+  }
+
   void showErrorSnackBar(String message) {
     AppSnackbar.show(this, title: message, isWarning: true);
   }
