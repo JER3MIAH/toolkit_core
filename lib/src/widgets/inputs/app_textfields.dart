@@ -24,6 +24,7 @@ class OutlinedTextField extends StatelessWidget {
   final bool readOnly;
   final Function()? onTap;
   final Function(String)? onChanged;
+  final bool showTopLabel;
 
   const OutlinedTextField({
     super.key,
@@ -50,6 +51,7 @@ class OutlinedTextField extends StatelessWidget {
     this.readOnly = false,
     this.onTap,
     this.onChanged,
+    this.showTopLabel = false,
   });
 
   @override
@@ -59,7 +61,7 @@ class OutlinedTextField extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (labelText != null && labelText!.isNotEmpty)
+        if (labelText != null && labelText!.isNotEmpty && showTopLabel)
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
