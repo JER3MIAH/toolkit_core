@@ -25,4 +25,11 @@ extension StringExtensions on String? {
     final hex = this!.replaceAll('#', '');
     return Color(int.parse('FF$hex', radix: 16));
   }
+
+  int get asInt {
+    if (isNullOrEmpty) return 0xFF000000;
+    final value = this!.replaceAll('#', '').toUpperCase();
+    final hex = value.length == 6 ? 'FF$value' : value;
+    return int.parse('0x$hex');
+  }
 }
