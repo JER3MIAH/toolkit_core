@@ -9,6 +9,7 @@ class AppColumn extends StatelessWidget {
   final CrossAxisAlignment crossAxisAlignment;
   final EdgeInsetsGeometry? padding;
   final bool shouldScroll;
+  final double spacing;
 
   const AppColumn({
     super.key,
@@ -18,6 +19,7 @@ class AppColumn extends StatelessWidget {
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.padding,
     this.shouldScroll = true,
+    this.spacing = 0.0,
   });
 
   @override
@@ -27,6 +29,7 @@ class AppColumn extends StatelessWidget {
           padding ??
           const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 16),
       child: Column(
+        spacing: spacing,
         mainAxisSize: mainAxisSize,
         mainAxisAlignment: mainAxisAlignment,
         crossAxisAlignment: crossAxisAlignment,
