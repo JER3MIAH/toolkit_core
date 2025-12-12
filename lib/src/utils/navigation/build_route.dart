@@ -10,6 +10,7 @@ PageRouteBuilder buildRoute(
   return PageRouteBuilder(
     settings: settings,
     pageBuilder: (_, _, _) => page,
+    transitionDuration: Duration(milliseconds: 700),
     transitionsBuilder: (_, animation, secondaryAnimation, child) {
       CurvedAnimation curvedAnimation;
 
