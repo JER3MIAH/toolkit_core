@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class TapBounce extends StatefulWidget {
   final Widget child;
@@ -34,7 +35,11 @@ class _TapBounceState extends State<TapBounce>
     super.dispose();
   }
 
-  void _handlePointerDown(PointerDownEvent event) => _controller.forward();
+  void _handlePointerDown(PointerDownEvent event) {
+    HapticFeedback.lightImpact();
+    _controller.forward();
+  }
+
   void _handlePointerUp(PointerUpEvent event) => _controller.reverse();
   void _handlePointerCancel(PointerEvent event) => _controller.reverse();
 

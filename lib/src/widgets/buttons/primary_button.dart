@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_toolkit/src/themes/themes.dart' show AppColors;
 
 class PrimaryButton extends StatelessWidget {
@@ -24,7 +25,10 @@ class PrimaryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: onTap,
+      onPressed: () {
+        HapticFeedback.lightImpact();
+        onTap?.call();
+      },
       style: ButtonStyle(
         backgroundColor: WidgetStatePropertyAll(
           color ?? Theme.of(context).colorScheme.primary,
