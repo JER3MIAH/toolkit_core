@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_toolkit/src/themes/themes.dart' show AppColors;
 
-class PrimaryButton extends StatelessWidget {
+/// Outlined button widget with optional icon support.
+class OutlinedButton extends StatelessWidget {
   final String title;
   final VoidCallback? onTap;
   final double fontSize;
   final double bHeight;
   final bool expanded;
-  final Color? color;
+  final Color? borderColor;
   final Color? textColor;
   final IconData? icon;
   final bool iconOnly;
 
-  const PrimaryButton({
+  const OutlinedButton({
     super.key,
     required this.title,
     this.onTap,
     this.fontSize = 14,
     this.bHeight = 36,
     this.expanded = false,
-    this.color,
+    this.borderColor,
     this.textColor,
     this.icon,
     this.iconOnly = false,
@@ -28,43 +28,43 @@ class PrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final borderCol = borderColor ?? Theme.of(context).colorScheme.primary;
+    final textCol = textColor ?? borderCol;
+
     return ElevatedButton(
       onPressed: () {
         HapticFeedback.lightImpact();
         onTap?.call();
       },
       style: ButtonStyle(
-        backgroundColor: WidgetStatePropertyAll(
-          color ?? Theme.of(context).colorScheme.primary,
-        ),
+        backgroundColor: const WidgetStatePropertyAll(Colors.transparent),
         elevation: const WidgetStatePropertyAll(0),
         minimumSize: WidgetStatePropertyAll(
           expanded ? Size(double.infinity, bHeight) : null,
         ),
         fixedSize: WidgetStatePropertyAll(Size.fromHeight(bHeight)),
         shape: WidgetStatePropertyAll(
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+            side: BorderSide(color: borderCol, width: 1.5),
+          ),
         ),
       ),
       child: iconOnly && icon != null
-          ? Icon(icon, color: textColor ?? AppColors.white)
+          ? Icon(icon, color: textCol, size: fontSize + 2)
           : Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 if (icon != null)
                   Padding(
                     padding: const EdgeInsets.only(right: 8.0),
-                    child: Icon(
-                      icon,
-                      color: textColor ?? AppColors.white,
-                      size: fontSize + 2,
-                    ),
+                    child: Icon(icon, color: textCol, size: fontSize + 2),
                   ),
                 Text(
                   title,
                   style: TextStyle(
                     fontSize: fontSize,
-                    color: textColor ?? AppColors.white,
+                    color: textCol,
                   ),
                 ),
               ],
