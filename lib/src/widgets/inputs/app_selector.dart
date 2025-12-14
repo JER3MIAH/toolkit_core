@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 /// A custom dropdown selector that matches the OutlinedTextField design.
 /// Features a clean outline border, label support, and a trailing widget.
-class AppSelector<T> extends StatefulWidget {
+class AppSelector extends StatefulWidget {
   /// The label displayed above the field.
   final String? labelText;
 
@@ -10,13 +10,13 @@ class AppSelector<T> extends StatefulWidget {
   final String? hintText;
 
   /// Currently selected value.
-  final T? value;
+  final String? value;
 
-  /// List of selectable items.
-  final List<AppSelectorItem<T>> items;
+  /// List of selectable string items.
+  final List<String> items;
 
   /// Callback when selection changes.
-  final void Function(T?)? onChanged;
+  final void Function(String?)? onChanged;
 
   /// Widget displayed at the trailing end (e.g., dropdown icon).
   final Widget? trailingWidget;
@@ -64,10 +64,10 @@ class AppSelector<T> extends StatefulWidget {
   });
 
   @override
-  State<AppSelector<T>> createState() => _AppSelectorState<T>();
+  State<AppSelector> createState() => _AppSelectorState();
 }
 
-class _AppSelectorState<T> extends State<AppSelector<T>> {
+class _AppSelectorState extends State<AppSelector> {
   late FocusNode _focusNode;
 
   @override
@@ -87,10 +87,8 @@ class _AppSelectorState<T> extends State<AppSelector<T>> {
     final colorScheme = Theme.of(context).colorScheme;
     final borderCol = widget.borderColor ?? colorScheme.inversePrimary;
     final focusedBorderCol = widget.focusedBorderColor ?? Colors.blue;
-    final selectedItem = widget.items.firstWhere(
-      (item) => item.value == widget.value,
-      orElse: () => AppSelectorItem<T>(value: null, label: ''),
-    );
+    final isSelected =
+        widget.value != null && widget.items.contains(widget.value);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -130,10 +128,10 @@ class _AppSelectorState<T> extends State<AppSelector<T>> {
                   children: [
                     Expanded(
                       child: Text(
-                        selectedItem.value != null
-                            ? selectedItem.label
+                        isSelected
+                            ? widget.value!
                             : widget.hintText ?? 'Select...',
-                        style: selectedItem.value != null
+                        style: isSelected
                             ? widget.textStyle ?? const TextStyle(fontSize: 14)
                             : widget.hintStyle ??
                                   TextStyle(
@@ -164,7 +162,7 @@ class _AppSelectorState<T> extends State<AppSelector<T>> {
     final box = context.findRenderObject() as RenderBox;
     final pos = box.localToGlobal(Offset.zero);
 
-    showMenu<T?>(
+    showMenu<String?>(
       context: context,
       position: RelativeRect.fromLTRB(
         pos.dx,
@@ -174,26 +172,15 @@ class _AppSelectorState<T> extends State<AppSelector<T>> {
       ),
       items: widget.items
           .map(
-            (item) => PopupMenuItem<T?>(
-              value: item.value,
+            (item) => PopupMenuItem<String?>(
+              value: item,
               onTap: () {
-                widget.onChanged?.call(item.value);
+                widget.onChanged?.call(item);
               },
-              child: Text(item.label),
+              child: Text(item),
             ),
           )
           .toList(),
     );
   }
-}
-
-/// Represents a single item in the AppSelector.
-class AppSelectorItem<T> {
-  /// The value associated with this item.
-  final T? value;
-
-  /// The label displayed to the user.
-  final String label;
-
-  AppSelectorItem({required this.value, required this.label});
 }
