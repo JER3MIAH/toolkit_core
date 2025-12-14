@@ -30,7 +30,7 @@ class AppOutlinedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final borderCol = borderColor ?? AppColors.neutral200;
-    final textCol = textColor ?? borderCol;
+    final textCol = textColor ?? context.colors.onSurface;
 
     return ElevatedButton(
       onPressed: () {
