@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_toolkit/flutter_toolkit.dart';
 
 /// Outlined button widget with optional icon support.
 class AppOutlinedButton extends StatelessWidget {
@@ -28,7 +29,7 @@ class AppOutlinedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final borderCol = borderColor ?? Theme.of(context).colorScheme.primary;
+    final borderCol = borderColor ?? AppColors.neutral200;
     final textCol = textColor ?? borderCol;
 
     return ElevatedButton(
