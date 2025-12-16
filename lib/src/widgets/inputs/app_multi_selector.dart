@@ -106,7 +106,7 @@ class _AppMultiSelectorState extends State<AppMultiSelector> {
 
   @override
   void dispose() {
-    _closeDropdown();
+    _cleanupDropdown();
     _focusNode.dispose();
     super.dispose();
   }
@@ -230,14 +230,25 @@ class _AppMultiSelectorState extends State<AppMultiSelector> {
   void _openDropdown() {
     _overlayEntry = _createOverlayEntry();
     Overlay.of(context).insert(_overlayEntry!);
-    setState(() => _isOpen = true);
+    if (mounted) {
+      setState(() => _isOpen = true);
+    }
     _focusNode.requestFocus();
   }
 
+  /// Close dropdown on user interaction. Only call this from UI callbacks.
   void _closeDropdown() {
+    _cleanupDropdown();
+    if (mounted) {
+      setState(() => _isOpen = false);
+    }
+  }
+
+  /// Clean up dropdown resources without calling setState.
+  /// Safe to call from dispose() or any context.
+  void _cleanupDropdown() {
     _overlayEntry?.remove();
     _overlayEntry = null;
-    setState(() => _isOpen = false);
   }
 
   OverlayEntry _createOverlayEntry() {
