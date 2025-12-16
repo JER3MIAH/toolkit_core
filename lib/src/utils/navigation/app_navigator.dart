@@ -32,6 +32,18 @@ class AppNavigator {
     }
   }
 
+  /// Use to pop until the first route
+  void popUntilFirst() {
+    if (Navigator.of(context).canPop()) {
+      Navigator.of(context).popUntil((route) => false);
+    }
+  }
+
+  /// Use to pop until a specific route name
+  void popUntilRoute(String routeName) {
+    Navigator.of(context).popUntil(ModalRoute.withName(routeName));
+  }
+
   /// Use to pop dialog if shown
   void popDialog() {
     if (Navigator.of(context).canPop()) {

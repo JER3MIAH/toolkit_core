@@ -54,6 +54,14 @@ extension ContextExtensions on BuildContext {
     navigator.popRoute();
   }
 
+  void popUntilFirst() {
+    navigator.popUntilFirst();
+  }
+
+  void popUntilRoute(String routeName) {
+    navigator.popUntilRoute(routeName);
+  }
+
   Future<T?> showDialog<T>(
     Widget content, {
     Color? bgColor,
