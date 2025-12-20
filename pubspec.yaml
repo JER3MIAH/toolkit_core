@@ -1,7 +1,7 @@
 name: flutter_toolkit
 description: "Material 3 ready UI toolkit with themed widgets, inputs, navigation helpers, validators, and loggers for Flutter apps."
 version: 0.1.0
-homepage: https://github.com/JER3MIAH
+# homepage: 
 repository: https://github.com/JER3MIAH/flutter_toolkit
 issue_tracker: https://github.com/JER3MIAH/flutter_toolkit/issues
 
