@@ -4,3 +4,4 @@ export 'gap.dart';
 export 'app_column.dart';
 export 'app_scaffold.dart';
 export 'box.dart';
+export 'expand_if.dart';
