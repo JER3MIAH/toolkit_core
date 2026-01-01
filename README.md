@@ -105,7 +105,7 @@ class DemoScreen extends StatelessWidget {
 
 ## Contributing
 
-Issues and pull requests are welcome. Please add tests or examples when contributing new components.
+Issues and pull requests are welcome.
 
 ## License
 
