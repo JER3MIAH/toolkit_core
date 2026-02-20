@@ -30,6 +30,8 @@ class KitDialog {
     Widget content, {
     Color? bgColor,
     bool dismissible = true,
+    double maxWidth = 540,
+    double? maxHeight,
   }) {
     final colorScheme = Theme.of(context).colorScheme;
 
@@ -48,7 +50,10 @@ class KitDialog {
               backgroundColor: bgColor ?? colorScheme.surfaceContainerHigh,
               shadowColor: bgColor ?? colorScheme.surfaceContainerHigh,
               child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 540),
+                constraints: BoxConstraints(
+                  maxWidth: 540,
+                  maxHeight: maxHeight ?? double.infinity,
+                ),
                 child: content,
               ),
             );
