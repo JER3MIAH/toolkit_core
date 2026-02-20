@@ -2,6 +2,12 @@
 
 All notable changes to this package will be documented here.
 
+## [0.3.1] - 2026-02-20
+
+### Added
+
+- maxHeight and maxWidth properties to showDialog function
+
 ## [0.3.0] - 2026-01-06
 
 ### Changed
