@@ -154,12 +154,16 @@ extension ContextExtensions on BuildContext {
     Widget content, {
     Color? bgColor,
     bool dismissible = true,
+    double maxWidth = 540,
+    double? maxHeight,
   }) {
     return KitDialog.dialog(
       this,
       content,
       bgColor: bgColor,
       dismissible: dismissible,
+      maxHeight: maxHeight,
+      maxWidth: maxWidth,
     );
   }
 

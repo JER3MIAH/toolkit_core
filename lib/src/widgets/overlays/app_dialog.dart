@@ -51,7 +51,7 @@ class KitDialog {
               shadowColor: bgColor ?? colorScheme.surfaceContainerHigh,
               child: ConstrainedBox(
                 constraints: BoxConstraints(
-                  maxWidth: 540,
+                  maxWidth: maxWidth,
                   maxHeight: maxHeight ?? double.infinity,
                 ),
                 child: content,
