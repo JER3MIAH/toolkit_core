@@ -2,6 +2,8 @@
 
 All notable changes to this package will be documented here.
 
+## [0.3.2] - 2026-02-21
+
 ## [0.3.1] - 2026-02-20
 
 ### Added
