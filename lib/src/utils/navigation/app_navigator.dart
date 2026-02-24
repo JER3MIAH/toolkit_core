@@ -99,6 +99,8 @@ class KitNavigator {
   ///   - [useRootNavigator]: If true, uses the root navigator (default: true)
   ///   - [backgroundColor]: The background color of the sheet
   ///   - [maxHeight]: The maximum height of the sheet (default: 90% of screen height)
+  ///   - [showBackButton]: Whether to show a back button in the top right corner (default: false)
+  ///   - [backButton]: Optional custom back button widget (overrides default if provided)
   ///
   /// Returns: A future that resolves when the sheet is dismissed
   Future<T?> showBottomSheet<T>({
@@ -107,15 +109,18 @@ class KitNavigator {
     bool useRootNavigator = true,
     Color? backgroundColor,
     double? maxHeight,
+    bool showBackButton = false,
+    Widget? backButton,
   }) {
     return showModalBottomSheet<T>(
       context: context,
       isScrollControlled: isScrollControlled,
       useRootNavigator: useRootNavigator,
       backgroundColor: Colors.transparent,
-      builder: (context) {
+      builder: (sheetContext) {
+        final colorScheme = Theme.of(context).colorScheme;
         final sheetHeight =
-            maxHeight ?? MediaQuery.of(context).size.height * 0.9;
+            maxHeight ?? MediaQuery.of(context).size.height * 0.8;
 
         return AnimatedPadding(
           padding: EdgeInsets.only(
@@ -126,10 +131,35 @@ class KitNavigator {
           child: Container(
             constraints: BoxConstraints(maxHeight: sheetHeight),
             decoration: BoxDecoration(
-              color: backgroundColor ?? Theme.of(context).colorScheme.surface,
+              color: backgroundColor ?? colorScheme.surface,
             ),
             child: SingleChildScrollView(
-              child: Padding(padding: const EdgeInsets.all(16.0), child: child),
+              child: Stack(
+                children: [
+                  // Main Content
+                  Padding(padding: const EdgeInsets.all(16.0), child: child),
+
+                  // Top Right Back Button
+                  if (backButton != null)
+                    Positioned(top: 8, right: 8, child: backButton),
+                  if (showBackButton && backButton == null)
+                    Positioned(
+                      top: 8,
+                      right: 8,
+                      child: Card(
+                        elevation: 2,
+                        child: IconButton(
+                          icon: Icon(Icons.close, color: colorScheme.onSurface),
+                          visualDensity: VisualDensity.compact,
+                          onPressed: () => Navigator.of(sheetContext).pop(),
+                          style: IconButton.styleFrom(
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
             ),
           ),
         );

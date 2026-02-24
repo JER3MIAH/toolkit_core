@@ -39,6 +39,7 @@ class KitSnackbar {
     required String title,
     Duration duration = const Duration(seconds: 4),
     bool isWarning = false,
+    SnackBarAction? action,
   }) {
     final colorScheme = Theme.of(context).colorScheme;
 
@@ -55,6 +56,7 @@ class KitSnackbar {
           color: isWarning ? KitColors.red500 : colorScheme.inversePrimary,
         ),
       ),
+      action: action,
       content: Row(
         children: [
           Icon(

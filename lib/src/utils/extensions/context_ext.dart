@@ -175,6 +175,8 @@ extension ContextExtensions on BuildContext {
   ///   - [useRootNavigator]: Whether to use the root navigator
   ///   - [backgroundColor]: The background color
   ///   - [maxHeight]: The maximum height of the sheet
+  ///   - [showBackButton]: Whether to show a back button in the top right corner
+  ///   - [backButton]: Optional custom back button widget (overrides default if provided)
   ///
   /// Returns: A future that resolves when the sheet is dismissed
   Future<T?> showBottomSheet<T>(
@@ -183,6 +185,8 @@ extension ContextExtensions on BuildContext {
     bool useRootNavigator = true,
     Color? backgroundColor,
     double? maxHeight,
+    bool showBackButton = false,
+    Widget? backButton,
   }) {
     return KitNavigator(this).showBottomSheet<T>(
       child: content,
@@ -190,6 +194,8 @@ extension ContextExtensions on BuildContext {
       isScrollControlled: isScrollControlled,
       useRootNavigator: useRootNavigator,
       maxHeight: maxHeight,
+      showBackButton: showBackButton,
+      backButton: backButton,
     );
   }
 
@@ -197,16 +203,18 @@ extension ContextExtensions on BuildContext {
   ///
   /// Parameters:
   ///   - [message]: The error message to display
-  void showErrorSnackBar(String message) {
-    KitSnackbar.show(this, title: message, isWarning: true);
+  ///   - [action]: Optional action to display in the snackbar
+  void showErrorSnackBar(String message, [SnackBarAction? action]) {
+    KitSnackbar.show(this, title: message, isWarning: true, action: action);
   }
 
   /// Show a success snackbar with a checkmark icon.
   ///
   /// Parameters:
   ///   - [message]: The success message to display
-  void showSuccessSnackBar(String message) {
-    KitSnackbar.show(this, title: message, isWarning: false);
+  ///   - [action]: Optional action to display in the snackbar
+  void showSuccessSnackBar(String message, [SnackBarAction? action]) {
+    KitSnackbar.show(this, title: message, isWarning: false, action: action);
   }
 
   // Keyboard shortcut
