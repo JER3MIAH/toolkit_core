@@ -2,13 +2,21 @@
 
 All notable changes to this package will be documented here.
 
+## [0.3.3] - 2026-02-24
+
+### Added
+
+- `showBackButton` property to `KitDialog.dialog`.
+- `showBackButton` property to `KitNavigator.showBottomSheet`.
+- `action` property to `KitSnackbar`.
+
 ## [0.3.2] - 2026-02-21
 
 ## [0.3.1] - 2026-02-20
 
 ### Added
 
-- maxHeight and maxWidth properties to showDialog function
+- `maxHeight` and `maxWidth` properties to `KitDialog.dialog`.
 
 ## [0.3.0] - 2026-01-06
 
